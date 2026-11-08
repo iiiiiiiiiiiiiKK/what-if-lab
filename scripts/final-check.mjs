@@ -1,4 +1,4 @@
-﻿import { chromium, devices } from '@playwright/test'
+import { chromium } from '@playwright/test'
 const base = process.argv[2]
 const browser = await chromium.launch({ channel: 'chrome' })
 const out = []
