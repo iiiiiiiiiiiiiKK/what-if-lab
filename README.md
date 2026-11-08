@@ -295,6 +295,16 @@ npx playwright test    # E2E（22 个用例 × Desktop/iPhone，使用本机 Chr
 - 布局：同泳道去重叠、跨泳道分道、年份范围、年代格式化（含公元前与百万年尺度）。
 - E2E：创建模拟 → 世界页；示例切换全部 Tab；刷新后档案馆仍存在；从事件分叉；中英/深浅色切换；空输入校验；**移动端无横向溢出**、**纵向时间线**、**移动端导航抽屉**、**作者 𝕏 链接可见**。
 
+### 额外的人工/脚本化验证（scripts/）
+
+| 脚本 | 作用 | 结果 |
+| --- | --- | --- |
+| scripts/verify-live.mjs <url> | 在真实浏览器里验证**线上部署**（桌面 + iPhone）：首页、作者 𝕏 链接、示例世界、全部 Tab、生产环境创建世界、刷新后档案馆仍在、移动端纵向时间线、**零 console error** | **12/12 通过** |
+| scripts/verify-ai-errors.mjs <url> | 用本地 mock 端点验证 AI 失败路径：非法结构报错且**不写入档案馆**、HTTP 500 报网络错误、取消生成回到空闲无弹窗、正常五阶段结果可生成世界 | **7/7 通过** |
+| scripts/check-viewports.mjs <url> | 320/360/375/414/768/1024/1440 七种宽度 × 5 个路由的横向溢出检查 | 全部 **0px** 溢出 |
+| scripts/audit-mobile.mjs <url> | iPhone 视口交互元素高度审计 | **0 个**小于 40px |
+| scripts/screenshots.mjs [url] | 抓取 README 里的真实截图 | 9 张 PNG |
+
 ## 部署
 
 ### GitHub Pages（当前线上方案，纯静态）
