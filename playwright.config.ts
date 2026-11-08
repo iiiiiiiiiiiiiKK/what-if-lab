@@ -12,7 +12,7 @@ export default defineConfig({
   reporter: [['list']],
   timeout: 60_000,
   use: {
-    baseURL: 'http://127.0.0.1:4173',
+    baseURL: 'http://localhost:4173',
     trace: 'off',
     screenshot: 'off',
     video: 'off',
@@ -29,8 +29,8 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: 'npm run preview',
-    url: 'http://127.0.0.1:4173',
+    command: 'node node_modules/vite/bin/vite.js preview --host localhost --port 4173 --strictPort',
+    url: 'http://localhost:4173',
     reuseExistingServer: true,
     timeout: 60_000,
   },

@@ -356,3 +356,41 @@
     }
   }
 }
+
+/*
+ * iPhone / small-screen ergonomics.
+ * Kept inside the components layer with !important: for important declarations
+ * earlier layers win, so this beats the compact `!min-h-8/!min-h-9` utilities
+ * used in dense desktop headers without editing every call site.
+ */
+@layer components {
+  @media (max-width: 767px) {
+    .chip {
+      min-height: 40px !important;
+      padding: 0.5rem 0.85rem !important;
+      font-size: 0.8125rem !important;
+    }
+
+    .btn {
+      min-height: 46px !important;
+      padding: 0.8rem 1.15rem !important;
+      font-size: 0.9rem !important;
+      /* Long single-line labels must wrap instead of overflowing. */
+      white-space: normal !important;
+      text-align: center;
+    }
+
+    /* Author 𝕏 badge stays comfortably tappable on a 320px phone. */
+    header a[href^='https://x.com/'] {
+      min-height: 36px;
+      padding-inline: 0.6rem;
+    }
+
+    input.field,
+    select.field,
+    textarea.field {
+      /* 16px prevents iOS from auto-zooming when the field is focused. */
+      font-size: 16px !important;
+    }
+  }
+}
