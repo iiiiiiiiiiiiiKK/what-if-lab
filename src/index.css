@@ -380,10 +380,15 @@
       text-align: center;
     }
 
-    /* Author 𝕏 badge stays comfortably tappable on a 320px phone. */
+    /* Author 𝕏 badge and brand link stay comfortably tappable on a 320px phone. */
     header a[href^='https://x.com/'] {
-      min-height: 36px;
+      min-height: 40px;
       padding-inline: 0.6rem;
+    }
+
+    header a[href='#/'],
+    header a[href='/'] {
+      min-height: 40px;
     }
 
     /* Sidebar branch switcher and footer links are real tap targets on a phone. */
