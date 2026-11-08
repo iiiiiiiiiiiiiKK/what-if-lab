@@ -60,8 +60,12 @@ test.describe('core flows', () => {
   test('switches language and theme', async ({ page }) => {
     await page.goto('/')
     await page.getByRole('button', { name: /Switch to English/i }).click()
-    await expect(page.getByRole('navigation').first()).toContainText('Library')
-    await page.getByRole('button', { name: /Dark|Light/i }).first().click()
+    // The hero tagline is rendered at every breakpoint, whereas the desktop nav is
+    // hidden behind the mobile sheet on phones, so assert on the tagline instead.
+    await expect(page.getByText('What if reality took a different turn?').first()).toBeVisible()
+    // Theme toggle keeps an aria-label describing the action, in the current language.
+    const themeToggle = page.locator('header button').filter({ hasText: /☾|☀/ }).first()
+    await themeToggle.click()
     const hasLight = await page.evaluate(() => document.documentElement.classList.contains('light'))
     expect(typeof hasLight).toBe('boolean')
   })

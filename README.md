@@ -273,7 +273,7 @@ npm test               # vitest run（45 个用例）
 npm run test:coverage  # 覆盖率
 npm run build          # 生产构建 → dist/
 npm run preview        # 预览构建产物 http://127.0.0.1:4173
-npx playwright test    # E2E（使用本机 Chrome，无需下载浏览器）
+npx playwright test    # E2E（22 个用例 × Desktop/iPhone，使用本机 Chrome）
 ```
 
 ## 测试
@@ -283,7 +283,7 @@ npx playwright test    # E2E（使用本机 Chrome，无需下载浏览器）
 | 类型检查 | `tsc -b` | 0 error |
 | Lint | oxlint（116 rules / 56 files） | 0 error, 0 warning |
 | 单元 / 组件测试 | Vitest + Testing Library | **45 passed / 45**（8 个文件） |
-| 端到端 | Playwright（Desktop Chrome + iPhone 13 视口） | **11 passed / 11** |
+| 端到端 | Playwright（Desktop Chrome + iPhone 13 视口 两个 project） | **22 passed / 22** |
 | 生产构建 | `vite build` | 成功 |
 
 覆盖的关键路径：
@@ -415,7 +415,7 @@ npm run dev
 
 ```bash
 npm run typecheck && npm run lint && npm test   # 45 tests
-npx playwright test                             # 11 E2E tests (uses local Chrome)
+npx playwright test                             # 22 E2E tests (uses local Chrome)
 npm run build && npm run preview
 ```
 
