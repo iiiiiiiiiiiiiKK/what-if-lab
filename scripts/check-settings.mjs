@@ -1,0 +1,21 @@
+﻿import { chromium } from '@playwright/test'
+const base = process.argv[2]
+const browser = await chromium.launch({ channel: 'chrome' })
+const ctx = await browser.newContext({ viewport: { width: 1280, height: 900 } })
+const page = await ctx.newPage()
+await page.goto(`${base}#/settings`, { waitUntil: 'load' })
+await page.getByRole('button', { name: /服务端代理/ }).click()
+await page.getByLabel(/服务端代理地址/).fill('/api/simulate')
+await page.getByRole('button', { name: /保存配置/ }).click()
+await page.waitForTimeout(600)
+const stored = await page.evaluate(() => localStorage.getItem('what-if-lab:preferences'))
+console.log('prefs after save:', stored ? 'yes' : 'no')
+const parsed = JSON.parse(stored || '{}')
+console.log('proxyUrl =', parsed?.state?.ai?.proxyUrl, '| mode =', parsed?.state?.ai?.mode)
+// after a reload the builder must switch to AI mode (badge) without exposing a key
+await page.reload({ waitUntil: 'load' })
+await page.goto(`${base}#/lab`, { waitUntil: 'load' })
+await page.waitForTimeout(600)
+const badge = await page.getByText(/AI 推演|基础规则模式/).first().innerText()
+console.log('engine badge after reload:', badge)
+await browser.close()
